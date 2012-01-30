@@ -1,6 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_cnt =5
 let g:netrw_dirhist_1='/Users/jtj/projects/gitosis-admin'
 let g:netrw_dirhist_2='/Users/jtj/oss/bootstrap-on-rails'
 let g:netrw_dirhist_3='/Users/jtj/oss/bootstrap-on-rails/public'
 let g:netrw_dirhist_4='/Users/jtj/oss/bootstrap-on-rails'
+let g:netrw_dirhist_5='/Users/jtj/wb/dts'
