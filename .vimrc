@@ -25,11 +25,15 @@ set smartcase
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-if has("vms")
-  set nobackup		" do not keep a backup file, use versions instead
-else
-  set backup		" keep a backup file
-endif
+" Store temporary files in a central spot
+" set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+" set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+
+"if has("vms")
+set nobackup		" do not keep a backup file, use versions instead
+" else
+"   set backup		" keep a backup file
+" endif
 set history=50		" keep 50 lines of command line history
 set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
@@ -56,6 +60,10 @@ if &t_Co > 2 || has("gui_running")
   syntax on
   set hlsearch
 endif
+
+" Press Space to turn off highlighting and clear any message already
+" displayed.
+:nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
