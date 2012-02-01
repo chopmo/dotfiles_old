@@ -38,7 +38,7 @@ export PATH=/usr/local/bin:$PATH
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
-alias vim=~/Applications/MacVim.app/Contents/MacOS/Vim
+alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
 
 # Aliases
 alias ls="/bin/ls -G"
@@ -64,7 +64,6 @@ alias maintain_rails_tags='while [ true ]; do rails_tags; sleep 120; done'
 
 alias accept='bundle exec rspec --drb spec/acceptance/*_spec.rb'
 
-# alias sp='bundle exec rspec --drb'
 alias sp='run_accept.sh'
 alias mig='rake db:migrate && rake db:test:clone'
 alias be='bundle exec'
@@ -112,6 +111,8 @@ alias gd='git diff'
 alias gs='git status'
 
 alias gopublish='cd ~/wb/gopublish && userbenv'
+
+alias ss='b/rspec spec'
 alias vb='cd ~/projects/voicebox && userbenv'
 alias koblo='cd ~/wb/koblo && userbenv'
 alias iac='cd ~/wb/iacez && uservm'
@@ -119,3 +120,11 @@ alias dts='cd ~/wb/dts && userbenv'
 
 alias px='ps aux | grep '
 alias restart='touch tmp/restart.txt'
+alias r=rails
+
+alias ci='git commit -m'
+alias aa='git add --all'
+alias st='git st'
+
+PROMPT='%{$fg_bold[red]%}➜ %{$fg_bold[green]%}%p %{$fg[cyan]%}%d %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}'
+unsetopt correct_all
