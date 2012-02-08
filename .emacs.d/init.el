@@ -625,18 +625,18 @@
 ;; when deleting files or dirs in dired.
 ;;
 ;; Original version is in dired-x.el
-(defun dired-clean-up-after-deletion (fn)
-  (save-excursion (and (cdr dired-subdir-alist)
-                       (dired-goto-subdir fn)
-                       (dired-kill-subdir)))
+;; (defun dired-clean-up-after-deletion (fn)
+;;   (save-excursion (and (cdr dired-subdir-alist)
+;;                        (dired-goto-subdir fn)
+;;                        (dired-kill-subdir)))
 
-  (if dired-clean-up-buffers-too
-      (progn
-        (let ((buf (get-file-buffer fn)))
-          (save-excursion
-            (kill-buffer buf)))
-        (let ((buf-list (dired-buffers-for-dir (expand-file-name fn)))
-              (buf nil))
-          (while buf-list
-            (save-excursion (kill-buffer (car buf-list)))
-            (setq buf-list (cdr buf-list)))))))
+;;   (if dired-clean-up-buffers-too
+;;       (progn
+;;         (let ((buf (get-file-buffer fn)))
+;;           (save-excursion
+;;             (kill-buffer buf)))
+;;         (let ((buf-list (dired-buffers-for-dir (expand-file-name fn)))
+;;               (buf nil))
+;;           (while buf-list
+;;             (save-excursion (kill-buffer (car buf-list)))
+;;             (setq buf-list (cdr buf-list)))))))
