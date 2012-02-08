@@ -13,6 +13,8 @@
 call pathogen#infect()
 call pathogen#helptags()
 
+runtime macros/matchit.vim
+
 syntax enable
 
 if has("gui_running")
@@ -201,3 +203,5 @@ map <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
 nnoremap <leader><leader> <c-^>
 
 nnoremap <leader>t :CommandT<cr>
+
+

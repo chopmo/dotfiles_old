@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_cnt =4
 let g:netrw_dirhist_1='/Users/jtj/.vim'
 let g:netrw_dirhist_2='/Users/jtj/.vim/plugin'
 let g:netrw_dirhist_3='/Users/jtj/wb/gopublish'
+let g:netrw_dirhist_4='/Users/jtj/.vim/ftplugin'
