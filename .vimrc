@@ -10,6 +10,27 @@
 "  for MS-DOS and Win32:  $VIM\_vimrc
 "	    for OpenVMS:  sys$login:.vimrc
 
+call pathogen#infect()
+call pathogen#helptags()
+
+syntax enable
+
+if has("gui_running")
+  set background=dark
+  colorscheme solarized
+else
+  set t_Co=256
+  colorscheme xoria256
+end
+
+set cursorline
+set confirm
+set hidden
+set wildmenu
+set ignorecase
+set smartcase
+set scrolloff=3
+
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
   finish
@@ -29,11 +50,8 @@ set backspace=indent,eol,start
 " set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 " set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
-"if has("vms")
 set nobackup		" do not keep a backup file, use versions instead
-" else
-"   set backup		" keep a backup file
-" endif
+set noswapfile
 set history=50		" keep 50 lines of command line history
 set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
@@ -60,6 +78,10 @@ if &t_Co > 2 || has("gui_running")
   syntax on
   set hlsearch
 endif
+
+" syntax enable
+" set background=light
+" colorscheme solarized
 
 " Press Space to turn off highlighting and clear any message already
 " displayed.
@@ -107,6 +129,75 @@ if !exists(":DiffOrig")
 		  \ | wincmd p | diffthis
 endif
 
-:imap kj <esc>
+let mapleader = ","
 
+set expandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set autoindent
+set laststatus=2
+set showmatch
+set incsearch
+set hls
 
+" GRB: use emacs-style tab completion when selecting files, etc
+set wildmode=longest,list
+
+:set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
+:hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
+
+" Remap the tab key to do autocompletion or indentation depending on the
+" context (from http://www.vim.org/tips/tip.php?tip_id=102)
+function! InsertTabWrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
+    else
+        return "\<c-p>"
+    endif
+endfunction
+inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+inoremap <s-tab> <c-n>
+
+set cmdheight=2
+
+map <leader>e :edit %%
+map <leader>v :view %%
+
+" Seriously, guys. It's not like :W is bound to anything anyway.
+command! W :w
+
+map <leader>gr :topleft :split config/routes.rb<cr>
+function! ShowRoutes()
+  " Requires 'scratch' plugin
+  :topleft 100 :split __Routes__
+  " Make sure Vim doesn't write __Routes__ as a file
+  :set buftype=nofile
+  " Delete everything
+  :normal 1GdG
+  " Put routes output in buffer
+  :0r! rake -s routes
+  " Size window to number of lines (1 plus rake output length)
+  :exec ":normal " . line("$") . "_ "
+  " Move cursor to bottom
+  :normal 1GG
+  " Delete empty trailing line
+  :normal dd
+endfunction
+map <leader>gR :call ShowRoutes()<cr>
+map <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
+map <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
+map <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
+map <leader>gh :CommandTFlush<cr>\|:CommandT app/helpers<cr>
+map <leader>gl :CommandTFlush<cr>\|:CommandT lib<cr>
+map <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
+map <leader>gs :CommandTFlush<cr>\|:CommandT public/stylesheets/sass<cr>
+map <leader>gf :CommandTFlush<cr>\|:CommandT features<cr>
+map <leader>gg :topleft 100 :split Gemfile<cr>
+map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
+map <leader>F :CommandTFlush<cr>\|:CommandT %%<cr>
+
+nnoremap <leader><leader> <c-^>
+
+nnoremap <leader>t :CommandT<cr>
