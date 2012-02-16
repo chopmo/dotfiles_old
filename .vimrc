@@ -81,10 +81,6 @@ if &t_Co > 2 || has("gui_running")
   set hlsearch
 endif
 
-" syntax enable
-" set background=light
-" colorscheme solarized
-
 " Press Space to turn off highlighting and clear any message already
 " displayed.
 :nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
@@ -116,11 +112,8 @@ if has("autocmd")
     \ endif
 
   augroup END
-
 else
-
   set autoindent		" always set autoindenting on
-
 endif " has("autocmd")
 
 " Convenient command to see the difference between the current buffer and the
@@ -204,4 +197,5 @@ nnoremap <leader><leader> <c-^>
 
 nnoremap <leader>t :CommandT<cr>
 
-
+set clipboard=unnamed
+set macmeta

@@ -51,6 +51,7 @@ alias te="RAILS_ENV=test"
 alias pe="RAILS_ENV=production"
 
 alias deploy="git push && b/cap deploy"
+alias glo="git log --oneline"
 
 # Set editors
 # export EDITOR="emacs -q -nw"

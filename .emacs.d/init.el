@@ -128,6 +128,8 @@
 
 (global-set-key (kbd "C-M-]") '(lambda () (interactive) (indent-region 0 (point-max))))
 
+(global-set-key (kbd "M-/") 'hippie-expand)
+
 ;;; Rails support
 ;;; =============
                                         ; Let's see if I'll need it
