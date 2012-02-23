@@ -25,6 +25,9 @@ else
   colorscheme xoria256
 end
 
+let mapleader = ","
+map <Leader>r :e $MYVIMRC<cr>
+
 set cursorline
 set confirm
 set hidden
@@ -83,7 +86,8 @@ endif
 
 " Press Space to turn off highlighting and clear any message already
 " displayed.
-:nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+" :nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+:nnoremap <silent> <CR> :nohlsearch<cr>
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
@@ -124,7 +128,6 @@ if !exists(":DiffOrig")
 		  \ | wincmd p | diffthis
 endif
 
-let mapleader = ","
 
 set expandtab
 set tabstop=2
@@ -157,6 +160,7 @@ inoremap <s-tab> <c-n>
 
 set cmdheight=2
 
+cnoremap %% <C-R>=expand('%:h').'/'<cr>
 map <leader>e :edit %%
 map <leader>v :view %%
 
@@ -199,3 +203,61 @@ nnoremap <leader>t :CommandT<cr>
 
 set clipboard=unnamed
 set macmeta
+
+
+
+function! RunTests(filename)
+    " Write the file and run tests for the given filename
+    :w
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    if match(a:filename, '\.feature$') != -1
+        exec ":!bundle exec cucumber " . a:filename
+    else
+        if filereadable("script/test")
+            exec ":!script/test " . a:filename
+        " elseif filereadable("Gemfile")
+        "     exec ":!bundle exec rspec --color " . a:filename
+        else
+            exec ":!rspec --color " . a:filename
+        end
+    end
+endfunction
+
+function! SetTestFile()
+    " Set the spec file that tests will be run for.
+    let t:grb_test_file=@%
+endfunction
+
+function! RunTestFile(...)
+    if a:0
+        let command_suffix = a:1
+    else
+        let command_suffix = ""
+    endif
+
+    " Run the tests for the previously-marked file.
+    let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\)$') != -1
+    if in_test_file
+        call SetTestFile()
+    elseif !exists("t:grb_test_file")
+        return
+    end
+    call RunTests(t:grb_test_file . command_suffix)
+endfunction
+
+function! RunNearestTest()
+    let spec_line_number = line('.')
+    call RunTestFile(":" . spec_line_number)
+endfunction
+
+map <leader>t :call RunTestFile()<cr>
+map <leader>T :call RunNearestTest()<cr>
+map <leader>a :call RunTests('')<cr>
+
+set number
+set numberwidth=5
+
+let g:CommandTMaxHeight=15
+set wildignore=*.wav,*.jpg,*.png,*.mp3
+
+set autowriteall
