@@ -15,7 +15,7 @@
 (require 'rspec-mode)
 (global-set-key '[f7] 'rspec-verify)
 (global-set-key (kbd "C-M-S-r") '(lambda () (interactive) (call-interactively (key-binding "\C-c,r"))))
-
+(global-set-key [(meta x)] 'smex)
 
 (require 'pivotal-tracker)
 (require 'autopair)
